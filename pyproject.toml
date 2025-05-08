@@ -9,7 +9,8 @@ requires = [
 name = "uimols"
 version = "1.0.0"
 authors = [
-    {name = "James McDonagh"},
+    {name = "Redx Pharma"},
+    {name = "J. L. McDonagh"},
 ]
 description = "Database access via Dash UI app and interactive data manipulation"
 requires-python = ">=3.9,<4.0"
@@ -37,10 +38,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-chemutils=["chemutil@git+https://github.com/Redx-Pharma/Chemical_utilities#egg=main"]
+chemutils=["chemutil@git+https://github.com/Redx-Pharma/chemical_utilities_os#egg=main"]
 
 [project.urls]
-Homepage = "https://github.com/Redx-Pharma/ui_interface"
-Documentation = "https://musical-engine-39219k9.pages.github.io/"
-Repository = "https://github.com/Redx-Pharma/ui_interface"
-Issues = "https://github.com/Redx-Pharma/ui_interface/issues"
+Homepage = "https://github.com/Redx-Pharma/uichem_rx_ose"
+Documentation = "https://potential-sniffle-2nnqnk2.pages.github.io/"
+Repository = "https://github.com/Redx-Pharma/uichem_rx_os"
+Issues = "https://github.com/Redx-Pharma/uichem_rx_os/issues"
