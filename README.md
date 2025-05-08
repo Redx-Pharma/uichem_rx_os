@@ -1,6 +1,6 @@
-[![Python package](https://github.com/Redx-Pharma/ui_interface/actions/workflows/testing.yaml/badge.svg)](https://github.com/Redx-Pharma/ui_interface/actions/workflows/testing.yaml)
+[![Python package](https://github.com/Redx-Pharma/uichem_rx_os/actions/workflows/testing.yaml/badge.svg)](https://github.com/Redx-Pharma/uichem_rx_os/actions/workflows/testing.yaml)
 
-[![.github/workflows/static.yaml](https://github.com/Redx-Pharma/ui_interface/actions/workflows/static.yaml/badge.svg)](https://github.com/Redx-Pharma/ui_interface/actions/workflows/static.yaml)
+[![Deploy static content to Pages](https://github.com/Redx-Pharma/uichem_rx_os/actions/workflows/static.yaml/badge.svg)](https://github.com/Redx-Pharma/uichem_rx_os/actions/workflows/static.yaml)
 
 # User Interface
 
