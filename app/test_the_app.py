@@ -74,7 +74,7 @@ def test_data_retrival_text_input(dash_duo):
     input_.send_keys("Label")
 
     # check the submit button is there for the user to click
-    _ = dash_duo.find_element("#upload_button")
+    _ = dash_duo.find_element("#upload-button")
     # button.click()
 
 

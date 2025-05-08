@@ -196,7 +196,7 @@ app.layout = dbc.Container(
                                 html.A(
                                     html.Button(
                                         "Upload",
-                                        id="query-heading-btn",
+                                        id="upload-heading-btn",
                                         n_clicks=0,
                                         style={
                                             "backgroundColor": "blue",
@@ -332,7 +332,7 @@ app.layout = dbc.Container(
                             style={"textAlign": "center"},
                         ),
                         dbc.Input(
-                            id="label_column",
+                            id="label-column",
                             type="text",
                             placeholder="Enter a column name to act as the label column",
                             style={"margin": "10px", "width": "100%", "height": "75px"},
@@ -1098,7 +1098,7 @@ def run_pareto_analysis(
     Output("log-output", "value", allow_duplicate=True),
     Output("loading-user-data-output", "children"),
     Input("upload-button", "n_clicks"),
-    State("label_column", "value"),
+    State("label-column", "value"),
     State("upload-data", "contents"),
     State("upload-data", "filename"),
     State("merge-column", "value"),
