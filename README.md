@@ -43,4 +43,6 @@ This repository contains a Web application built using Dash as a User Interface 
 ## Contributions
 Authors:
 * Redx Pharma
+* S. Yung
+* A. Haworth
 * J. L. McDonagh

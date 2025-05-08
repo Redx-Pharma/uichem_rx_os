@@ -10,6 +10,8 @@ name = "uimols"
 version = "1.0.0"
 authors = [
     {name = "Redx Pharma"},
+    {name = "S. Yung"},
+    {name = "A. Haworth"},
     {name = "J. L. McDonagh"},
 ]
 description = "Database access via Dash UI app and interactive data manipulation"
