@@ -70,7 +70,7 @@ def test_data_retrival_text_input(dash_duo):
     dash_duo.start_server(app)
 
     # Get the input element and change the text to check the element is writeable
-    input_ = dash_duo.find_element("#label_column")
+    input_ = dash_duo.find_element("#label-column")
     input_.send_keys("Label")
 
     # check the submit button is there for the user to click
