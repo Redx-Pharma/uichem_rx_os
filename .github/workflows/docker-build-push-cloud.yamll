@@ -1,0 +1,65 @@
+name: Build and Push Docker Image to Azure Container Registry
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up QEMU quick emulator
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Azure Container Registry
+        uses: azure/docker-login@v2
+        with:
+          login-server: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.AZURE_CID }}
+          password: ${{ secrets.AZURE_CSEC }}
+
+      - name: Set up Docker BuildKit
+        run: |
+          echo '{"experimental": true}' | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker
+
+      - name: Get lower case owner name
+        run: |
+          echo "REPOLOWERCASE=${GITHUB_REPOSITORY_OWNER@L}" >> "${GITHUB_ENV}"
+
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +'%d-%m-%Y-%H-%M-%S')" >> $GITHUB_ENV
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            ${{ secrets.AZURE_REG_NAME }}.azurecr.io/ui:latest
+            ${{ secrets.AZURE_REG_NAME }}.azurecr.io/ui:${{ env.NOW }}
+          secrets: |
+            GH_TOKEN=${{ secrets.TOKENBP }}
+
+      - name: Log out from Azure Container Registry
+        run: docker logout ${{ secrets.AZURE_REG_NAME }}.azurecr.io

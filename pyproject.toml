@@ -1,0 +1,45 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+    "setuptools>=63.2.0",
+    "wheel>=0.37.1",
+]
+
+[project]
+name = "uimols"
+version = "1.0.0"
+authors = [
+    {name = "James McDonagh"},
+]
+description = "Database access via Dash UI app and interactive data manipulation"
+requires-python = ">=3.9,<4.0"
+classifiers = [
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+]
+
+dependencies = [
+    "statsmodels>=0.14.4",
+    "dash[testing]==2.18.2",
+    "dash-bootstrap-components==0.13.1",
+    "dash-core-components==2.0.0",
+    "dash-html-components==2.0.0",
+    "dash-table==5.0.0",
+    "dash-auth==2.3.0",
+    "plotly>=5.24.1",
+    "selenium>=4.2", #4.27.1
+    "openpyxl>=3.1.5",
+    "shapely>=2.0.6",
+    "paretoset@git+https://github.com/tommyod/paretoset#egg=master",
+    "rdkit>=2024.9.6",
+]
+
+[project.optional-dependencies]
+chemutils=["chemutil@git+https://github.com/Redx-Pharma/Chemical_utilities#egg=main"]
+
+[project.urls]
+Homepage = "https://github.com/Redx-Pharma/ui_interface"
+Documentation = "https://musical-engine-39219k9.pages.github.io/"
+Repository = "https://github.com/Redx-Pharma/ui_interface"
+Issues = "https://github.com/Redx-Pharma/ui_interface/issues"
