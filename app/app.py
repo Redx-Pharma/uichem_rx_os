@@ -148,7 +148,7 @@ plotting_scatter_markdown = """
 
 plotting_radar_markdown = """
 The radar plot will show the objectives as a series of axes with the values for each molecule plotted as a trace on the axes. The radar plot can be used to compare the objectives for a set of molecules.
-If a reference and or optimal directions are provided then a table will be generated quantifying the degree of overlap and the difference in area between the reference and or ideal and the selected molecule. These are presented as percentages of the reference or ideal areas.
+If a reference and or optimal directions are provided then a table will be generated quantifying the degree of overlap and the difference in area between the reference and or ideal and the selected molecule. These are presented as percentages of the area for the test which overlap or diverge from the area of the reference or ideal traces. They should add to ~100.0%.
 """
 
 
@@ -1890,8 +1890,6 @@ def update_tooltip(
 
 
 ##### Radar plot functions #####
-
-
 @app.callback(
     Output("radar-plot", "figure"),
     Output("log-output", "value", allow_duplicate=True),
@@ -2359,6 +2357,7 @@ def update_radar_plot(
         reference_table_data = True
         intersection_areas_ref = {}
         non_intersection_areas_ref = {}
+        area_test_only_area = 1e-15
         area_reference_only_area = 1e-15
         overlap_fraction_reference = {}
         overlap_percentage_reference = {}
@@ -2374,8 +2373,21 @@ def update_radar_plot(
                 )
             ]
         )
+        logging.debug(
+            f"Area reference trace: {area_reference_only_area} {cartesian_coords_reference_trace['x']} {cartesian_coords_reference_trace['y']}"
+        )
 
         for test_trace in cartesian_coords_test_traces:
+            area_test_only_area = app_methods.calculate_area(
+                [
+                    (rx, ry)
+                    for rx, ry in zip(
+                        cartesian_coords_test_traces[test_trace]["x"],
+                        cartesian_coords_test_traces[test_trace]["y"],
+                    )
+                ]
+            )
+
             intersection_area = app_methods.calculate_overlapping_area(
                 [
                     (rx, ry)
@@ -2411,13 +2423,13 @@ def update_radar_plot(
             intersection_areas_ref[test_trace] = intersection_area
             non_intersection_areas_ref[test_trace] = divergence_area
             overlap_fraction_reference[test_trace] = (
-                intersection_area / area_reference_only_area
+                intersection_area / area_test_only_area
             )
             overlap_percentage_reference[test_trace] = (
                 overlap_fraction_reference[test_trace] * 100.0
             )
             non_overlap_fraction_reference[test_trace] = (
-                divergence_area / area_reference_only_area
+                divergence_area / area_test_only_area
             )
             non_overlap_percentage_reference[test_trace] = (
                 non_overlap_fraction_reference[test_trace] * 100.0
@@ -2434,6 +2446,7 @@ def update_radar_plot(
         intersection_areas_idl = {}
         non_intersection_areas_idl = {}
         area_ideal_only_area = 1e-15
+        area_test_only_area = 1e-15
         overlap_fraction_ideal = {}
         overlap_percentage_ideal = {}
         non_overlap_fraction_ideal = {}
@@ -2448,8 +2461,21 @@ def update_radar_plot(
                 )
             ]
         )
+        logging.debug(
+            f"Area ideal trace: {area_ideal_only_area} {cartesian_coords_ideal_trace['x']} {cartesian_coords_ideal_trace['y']}"
+        )
 
         for test_trace in cartesian_coords_test_traces:
+            area_test_only_area = app_methods.calculate_area(
+                [
+                    (rx, ry)
+                    for rx, ry in zip(
+                        cartesian_coords_test_traces[test_trace]["x"],
+                        cartesian_coords_test_traces[test_trace]["y"],
+                    )
+                ]
+            )
+
             intersection_area = app_methods.calculate_overlapping_area(
                 [
                     (rx, ry)
@@ -2484,14 +2510,12 @@ def update_radar_plot(
             )
             intersection_areas_idl[test_trace] = intersection_area
             non_intersection_areas_idl[test_trace] = divergence_area
-            overlap_fraction_ideal[test_trace] = (
-                intersection_area / area_ideal_only_area
-            )
+            overlap_fraction_ideal[test_trace] = intersection_area / area_test_only_area
             overlap_percentage_ideal[test_trace] = (
                 overlap_fraction_ideal[test_trace] * 100.0
             )
             non_overlap_fraction_ideal[test_trace] = (
-                divergence_area / area_ideal_only_area
+                divergence_area / area_test_only_area
             )
             non_overlap_percentage_ideal[test_trace] = (
                 non_overlap_fraction_ideal[test_trace] * 100.0

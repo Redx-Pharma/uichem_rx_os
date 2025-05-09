@@ -45,4 +45,4 @@ Authors:
 * Redx Pharma
 * S. Yung
 * A. Haworth
-* J. L. McDonagh
+* J. McDonagh
